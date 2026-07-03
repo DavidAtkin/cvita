@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CVITA — Recruitment, Staffing &amp; Payroll, Handled Properly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1B3F;
+    --violet-deep:#3D2472;
+    --violet:#5B33A6;
+    --violet-bright:#8B5CF0;
+    --paper:#F7F6FB;
+    --paper-alt:#EEEBF6;
+    --card:#FFFFFF;
+    --ink-soft:#585C74;
+    --ink-faint:#8285A0;
+    --line:#DEDAEE;
+    --line-soft:#EAE7F2;
+    --radius:14px;
+    --wrap:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--wrap); margin:0 auto; padding:0 32px;}
+  img,svg{display:block; max-width:100%;}
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:500;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    font-size:12px;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--violet);
+    margin-bottom:16px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:16px; height:1px;
+    background:var(--violet-bright);
+  }
+  :focus-visible{outline:2px solid var(--violet-bright); outline-offset:3px; border-radius:4px;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(247,246,251,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    max-width:var(--wrap); margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:20px;}
+  .brand-mark{width:30px; height:22px;}
+  nav ul{list-style:none; display:flex; gap:34px; margin:0; padding:0;}
+  nav a{font-size:14.5px; font-weight:500; color:var(--ink-soft); transition:color .15s;}
+  nav a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--ink); color:#fff !important;
+    padding:10px 20px; border-radius:999px; font-size:14px; font-weight:600;
+    transition:background .15s, transform .15s;
+  }
+  .nav-cta:hover{background:var(--violet); transform:translateY(-1px);}
+  .nav-toggle{display:none; background:none; border:0; cursor:pointer;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:104px 0 96px; overflow:hidden; position:relative;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.85fr; gap:48px; align-items:center;
+  }
+  .hero h1{font-size:clamp(38px,5vw,60px); line-height:1.06;}
+  .hero h1 em{
+    font-style:normal;
+    background:linear-gradient(100deg,var(--violet-deep),var(--violet-bright));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lede{
+    font-size:18px; color:var(--ink-soft); max-width:480px; margin:24px 0 34px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:999px; font-weight:600; font-size:15px;
+    transition:transform .15s, box-shadow .15s, background .15s;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--ink); color:#fff;}
+  .btn-primary:hover{background:var(--violet); transform:translateY(-2px); box-shadow:0 10px 24px rgba(91,51,166,0.28);}
+  .btn-ghost{border-color:var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--violet); color:var(--violet); transform:translateY(-2px);}
+
+  .hero-mark{position:relative; aspect-ratio:1/1; max-width:420px; margin:0 auto;}
+  .orbit{
+    position:absolute; inset:0; border-radius:50%;
+    border:1px dashed var(--line);
+    animation:spin 60s linear infinite;
+  }
+  .orbit.o2{inset:44px; animation-duration:44s; animation-direction:reverse;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .float{animation:float 7s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);}}
+
+  .trust-strip{
+    border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft);
+    padding:28px 0;
+  }
+  .trust-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:left;
+  }
+  .trust-item .num{font-family:'Space Grotesk'; font-weight:700; font-size:26px; color:var(--violet-deep);}
+  .trust-item .label{font-size:13px; color:var(--ink-soft); margin-top:4px;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:104px 0;}
+  .section-head{max-width:640px; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.4vw,38px); line-height:1.15;}
+  .section-head p{color:var(--ink-soft); font-size:17px; margin-top:16px;}
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .service-card{
+    background:var(--card); border:1px solid var(--line-soft); border-radius:var(--radius);
+    padding:28px 24px; display:flex; flex-direction:column; gap:14px;
+    transition:transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .service-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(11,27,63,0.08); border-color:var(--line);}
+  .service-icon{
+    width:44px; height:44px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg,var(--violet-deep),var(--violet-bright));
+  }
+  .service-card h3{font-size:19px; margin-top:2px;}
+  .service-card p{color:var(--ink-soft); font-size:14.5px; margin:0; flex:1;}
+  .service-doc{
+    margin-top:6px; padding-top:14px; border-top:1px solid var(--line-soft);
+    font-size:12px; color:var(--ink-faint);
+  }
+  .service-doc span{color:var(--violet); font-weight:600;}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative;}
+  .steps::before{
+    content:""; position:absolute; top:19px; left:6%; right:6%; height:1px;
+    background:var(--line);
+  }
+  .step{position:relative; padding-right:20px;}
+  .step-num{
+    width:40px; height:40px; border-radius:50%; background:var(--ink); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono'; font-size:14px; margin-bottom:22px; position:relative; z-index:2;
+  }
+  .step h4{font-family:'Space Grotesk'; font-size:16.5px; margin-bottom:8px;}
+  .step p{color:var(--ink-soft); font-size:14px; margin:0;}
+
+  /* ---------- COMPLIANCE DECODER ---------- */
+  .compliance{background:var(--ink); color:#fff; border-radius:28px; margin:0 32px;}
+  .compliance-inner{max-width:calc(var(--wrap) - 64px); margin:0 auto; padding:88px 32px;}
+  .compliance .section-head h2{color:#fff;}
+  .compliance .section-head p{color:#B9BBD1;}
+  .compliance .eyebrow{color:#B48CFF;}
+  .compliance .eyebrow::before{background:#B48CFF;}
+  .decoder-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .decoder-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:12px; padding:20px; cursor:default;
+    transition:background .2s, border-color .2s;
+    position:relative; min-height:104px;
+  }
+  .decoder-card:hover{background:rgba(255,255,255,0.09); border-color:#B48CFF;}
+  .decoder-term{font-family:'IBM Plex Mono'; font-size:13px; letter-spacing:0.06em; color:#B48CFF; margin-bottom:10px;}
+  .decoder-def{font-size:14px; color:#D6D7E6; line-height:1.5;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:start;}
+  .about-figure{
+    background:var(--paper-alt); border-radius:var(--radius);
+    padding:40px; border:1px solid var(--line-soft);
+  }
+  .about-figure .quote-mark{font-family:'Space Grotesk'; font-size:52px; color:var(--violet-bright); line-height:1;}
+  .about-figure p{font-size:18px; color:var(--ink); margin:14px 0 20px; font-family:'Space Grotesk'; font-weight:500; line-height:1.4;}
+  .about-figure .attr{font-size:13px; color:var(--ink-soft);}
+  .value-list{display:flex; flex-direction:column; gap:26px;}
+  .value-item{display:flex; gap:18px;}
+  .value-item .dot{
+    width:8px; height:8px; border-radius:50%; margin-top:9px; flex-shrink:0;
+    background:linear-gradient(135deg,var(--violet-deep),var(--violet-bright));
+  }
+  .value-item h4{font-family:'Space Grotesk'; font-size:16.5px; margin-bottom:6px;}
+  .value-item p{color:var(--ink-soft); font-size:14.5px; margin:0;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-shell{
+    background:linear-gradient(120deg,var(--violet-deep),var(--violet) 55%,var(--ink));
+    border-radius:28px; padding:80px 56px; color:#fff; margin:0 32px;
+    display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+  }
+  .contact-shell h2{color:#fff; font-size:clamp(26px,3vw,34px);}
+  .contact-shell p{color:#E6DFFB; margin-top:14px; font-size:16px; max-width:420px;}
+  .contact-form{display:flex; flex-direction:column; gap:12px;}
+  .contact-form input,.contact-form select,.contact-form textarea{
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.24);
+    color:#fff; padding:13px 16px; border-radius:10px; font-family:'Inter'; font-size:14.5px;
+  }
+  .contact-form input::placeholder,.contact-form textarea::placeholder{color:#CFC5F2;}
+  .contact-form label{font-size:12.5px; color:#D9D0F7; margin-bottom:-4px;}
+  .contact-form button{
+    margin-top:6px; background:#fff; color:var(--violet-deep); border:0;
+    padding:14px 20px; border-radius:999px; font-weight:700; cursor:pointer; font-size:15px;
+    transition:transform .15s;
+  }
+  .contact-form button:hover{transform:translateY(-2px);}
+  .contact-direct{margin-top:26px; font-size:14px; color:#EDE8FC;}
+  .contact-direct a{text-decoration:underline; text-underline-offset:3px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:56px 0 40px; border-top:1px solid var(--line-soft); margin-top:60px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px;}
+  .footer-brand{display:flex; align-items:center; gap:10px; font-family:'Space Grotesk'; font-weight:700; font-size:18px; margin-bottom:12px;}
+  .footer-brand svg{width:24px; height:18px;}
+  footer p.tag{color:var(--ink-soft); font-size:13.5px; max-width:260px;}
+  .footer-col h5{font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px;}
+  .footer-col ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;}
+  .footer-col a{font-size:14px; color:var(--ink-soft);}
+  .footer-col a:hover{color:var(--violet);}
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:48px; padding-top:24px; border-top:1px solid var(--line-soft);
+    font-size:12.5px; color:var(--ink-faint); flex-wrap:wrap; gap:12px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:920px){
+    nav ul{display:none;}
+    .nav-toggle{display:block;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-mark{margin-top:30px;}
+    .trust-grid{grid-template-columns:repeat(2,1fr); row-gap:24px;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .steps{grid-template-columns:repeat(2,1fr); row-gap:36px;}
+    .steps::before{display:none;}
+    .decoder-grid{grid-template-columns:repeat(2,1fr);}
+    .about-grid{grid-template-columns:1fr;}
+    .contact-shell{grid-template-columns:1fr; padding:48px 28px;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .compliance,.contact-shell{margin:0 16px;}
+    .wrap{padding:0 20px;}
+  }
+  @media (max-width:560px){
+    .services-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .decoder-grid{grid-template-columns:1fr;}
+    .trust-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    section{padding:72px 0;}
+    .hero{padding:64px 0 56px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <a href="#home" class="brand">
+      <svg class="brand-mark" viewBox="0 0 60 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gmark" x1="0" y1="0" x2="60" y2="44"><stop offset="0" stop-color="#3D2472"/><stop offset="1" stop-color="#8B5CF0"/></linearGradient></defs>
+        <circle cx="14" cy="9" r="7" fill="#0B1B3F"/>
+        <path d="M2 40 C2 24 12 18 14 18 C16 18 24 22 26 30" stroke="#0B1B3F" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <circle cx="38" cy="11" r="6" fill="url(#gmark)"/>
+        <path d="M28 40 C28 26 34 20 38 20 C42 20 46 26 48 38" stroke="url(#gmark)" stroke-width="8" stroke-linecap="round" fill="none"/>
+      </svg>
+      cvita
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#compliance">Compliance</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="nav-cta">Book a call</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="home" style="padding-top:64px;">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow mono">Recruitment · Staffing · Payroll</div>
+        <h1>Hiring and payroll,<br><em>handled properly.</em></h1>
+        <p class="lede">CVITA finds the people you need — permanent, temporary, or fully managed — and can take weekly payroll off your hands too. One partner, four services, zero guesswork on compliance.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Talk to us →</a>
+          <a href="#services" class="btn btn-ghost">See services</a>
+        </div>
+      </div>
+      <div class="hero-mark float" aria-hidden="true">
+        <div class="orbit"></div>
+        <div class="orbit o2"></div>
+        <svg viewBox="0 0 300 300" width="100%" height="100%">
+          <defs>
+            <linearGradient id="heroGrad" x1="0" y1="0" x2="300" y2="300">
+              <stop offset="0" stop-color="#3D2472"/>
+              <stop offset="1" stop-color="#9B6FE0"/>
+            </linearGradient>
+          </defs>
+          <circle cx="100" cy="90" r="26" fill="#0B1B3F"/>
+          <path d="M40 250 C40 170 80 140 100 140 C120 140 160 165 175 205" stroke="#0B1B3F" stroke-width="30" stroke-linecap="round" fill="none"/>
+          <circle cx="195" cy="100" r="22" fill="url(#heroGrad)"/>
+          <path d="M150 250 C150 180 175 155 195 155 C215 155 235 185 245 240" stroke="url(#heroGrad)" stroke-width="26" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST / STATS -->
+  <div class="trust-strip">
+    <div class="wrap trust-grid">
+      <div class="trust-item"><div class="num">14 days</div><div class="label">standard invoice terms, no surprises</div></div>
+      <div class="trust-item"><div class="num">12 weeks</div><div class="label">AWR equal-treatment tracking, automatic</div></div>
+      <div class="trust-item"><div class="num">48 hrs</div><div class="label">personal data breach notification SLA</div></div>
+      <div class="trust-item"><div class="num">100%</div><div class="label">right-to-work checks before day one</div></div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow mono">What we do</div>
+        <h2>Four ways to get the right people in place.</h2>
+        <p>Use one service or all four — each is governed by its own clear terms, so you always know exactly what you've signed up for.</p>
+      </div>
+      <div class="services-grid">
+
+        <div class="service-card reveal">
+          <div class="service-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6" r="3.4" stroke="white" stroke-width="1.6"/><path d="M3 17c0-3.5 3-6 7-6s7 2.5 7 6" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <h3>Permanent</h3>
+          <p>Contingency recruitment with a real shortlist, not a CV dump. You only see people who fit the brief.</p>
+          <div class="service-doc">Governed by <span>Terms of Business — Permanent Placement</span></div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v5H4zM4 11h8v5H4z" stroke="white" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+          <h3>Temporary &amp; contract</h3>
+          <p>Fast, compliant access to interim talent — AWR rights, right-to-work, and timesheets managed as standard.</p>
+          <div class="service-doc">Governed by <span>Terms of Business — Temporary Worker Supply</span></div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1" stroke="white" stroke-width="1.6"/><rect x="11" y="3" width="6" height="6" rx="1" stroke="white" stroke-width="1.6"/><rect x="3" y="11" width="6" height="6" rx="1" stroke="white" stroke-width="1.6"/><rect x="11" y="11" width="6" height="6" rx="1" stroke="white" stroke-width="1.6"/></svg></div>
+          <h3>Managed service / RPO</h3>
+          <p>Hand us some or all of your recruitment process. You get it back as a reported-on, governed operation.</p>
+          <div class="service-doc">Governed by <span>Managed Service Provision Agreement</span></div>
+        </div>
+
+        <div class="service-card reveal">
+          <div class="service-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M8 5l-5 5 5 5M12 5l5 5-5 5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Payroll hours</h3>
+          <p>We manage and validate hours; our payroll bureau runs PAYE, RTI, and payslips. Clear line, clean handoff.</p>
+          <div class="service-doc">Governed by <span>Payroll Hours Management Schedule</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow mono">The process</div>
+        <h2>From brief to start date, in four steps.</h2>
+        <p>The same rhythm whether you're hiring one person or handing us your whole recruitment function.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div class="step-num">01</div><h4>Register &amp; brief</h4><p>Tell us who you need — role, rate, timeline — and we agree how we'll work together.</p></div>
+        <div class="step reveal"><div class="step-num">02</div><h4>Source &amp; screen</h4><p>We match, screen, and only put forward people who genuinely fit the brief.</p></div>
+        <div class="step reveal"><div class="step-num">03</div><h4>Interview &amp; offer</h4><p>We brief candidates, gather feedback fast, and manage the offer process for you.</p></div>
+        <div class="step reveal"><div class="step-num">04</div><h4>Start &amp; support</h4><p>Compliance checks complete, contracts issued, and ongoing support from day one.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPLIANCE DECODER -->
+  <section id="compliance">
+    <div class="wrap">
+      <div class="compliance reveal">
+        <div class="compliance-inner">
+          <div class="section-head">
+            <div class="eyebrow mono">We speak fluent compliance</div>
+            <h2>Recruitment law is full of acronyms. We handle what's behind them.</h2>
+            <p>Every engagement with CVITA is backed by the paperwork most agencies skip. Hover to see what each one actually means for you.</p>
+          </div>
+          <div class="decoder-grid">
+            <div class="decoder-card"><div class="decoder-term">AWR</div><div class="decoder-def">Agency Workers Regulations — equal pay &amp; conditions after 12 weeks on the same assignment, tracked automatically.</div></div>
+            <div class="decoder-card"><div class="decoder-term">KID</div><div class="decoder-def">Key Information Document — how you're paid, by whom, and what's deducted, given before you agree to any assignment.</div></div>
+            <div class="decoder-card"><div class="decoder-term">UK GDPR</div><div class="decoder-def">Your data, used only for what you agreed to, with a clear notice on what we hold and why.</div></div>
+            <div class="decoder-card"><div class="decoder-term">RTI</div><div class="decoder-def">Real Time Information — payroll submissions to HMRC, handled by our appointed payroll bureau, every cycle.</div></div>
+            <div class="decoder-card"><div class="decoder-term">DPA</div><div class="decoder-def">Data Processing Agreement — the written terms controlling exactly how we handle data on a client's behalf.</div></div>
+            <div class="decoder-card"><div class="decoder-term">R2W</div><div class="decoder-def">Right to work — checked and evidenced before anyone starts, every time, no exceptions.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <div class="about-figure">
+          <div class="quote-mark">“</div>
+          <p>Managed services. People first.</p>
+          <div class="attr">— The idea behind everything we build at CVITA</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="eyebrow mono">About CVITA</div>
+        <h2 style="font-size:clamp(26px,3vw,34px); margin-bottom:28px;">We built CVITA because hiring shouldn't feel like a risk.</h2>
+        <div class="value-list">
+          <div class="value-item">
+            <div class="dot"></div>
+            <div><h4>Clear terms, always</h4><p>No buried fees or ambiguous rebate clauses — what you sign is what happens.</p></div>
+          </div>
+          <div class="value-item">
+            <div class="dot"></div>
+            <div><h4>Compliance as standard</h4><p>AWR, right to work, and data protection aren't add-ons — they're built into every placement.</p></div>
+          </div>
+          <div class="value-item">
+            <div class="dot"></div>
+            <div><h4>One partner, not a patchwork</h4><p>Recruitment, staffing, managed service, and payroll — coordinated, not siloed.</p></div>
+          </div>
+          <div class="value-item">
+            <div class="dot"></div>
+            <div><h4>People, not just placements</h4><p>Candidates get real feedback and support. Clients get a team that knows their business.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-shell reveal">
+        <div>
+          <div class="eyebrow mono" style="color:#E4D6FF;">Let's talk</div>
+          <h2>Tell us what you need to hire — or pay — and we'll take it from there.</h2>
+          <p>Fifteen minutes is usually enough to know if we're a fit. No obligation either way.</p>
+          <div class="contact-direct">
+            <a href="mailto:admin@cvita.co.uk">admin@cvita.co.uk</a> · [+44 000 000 0000]<br>
+            [Registered office address, UK]
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form" novalidate>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@company.com" required>
+          <label for="company">Company</label>
+          <input id="company" name="company" type="text" placeholder="Company name">
+          <label for="need">What do you need?</label>
+          <select id="need" name="need">
+            <option>Permanent recruitment</option>
+            <option>Temporary / contract supply</option>
+            <option>Managed service / RPO</option>
+            <option>Payroll hours management</option>
+            <option>Not sure yet</option>
+          </select>
+          <label for="msg">A little detail</label>
+          <textarea id="msg" name="message" rows="3" placeholder="Tell us briefly what you're looking for"></textarea>
+          <!-- Honeypot field: hidden from real users via CSS, bots often fill every field -->
+          <div style="position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden;" aria-hidden="true">
+            <label for="website">Leave this field blank</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <button type="submit" id="contact-submit">Send &amp; book a call</button>
+          <div id="contact-status" role="status" style="font-size:13.5px; margin-top:4px; min-height:18px;"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg viewBox="0 0 60 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="9" r="7" fill="#0B1B3F"/>
+            <path d="M2 40 C2 24 12 18 14 18 C16 18 24 22 26 30" stroke="#0B1B3F" stroke-width="9" stroke-linecap="round" fill="none"/>
+            <circle cx="38" cy="11" r="6" fill="#8B5CF0"/>
+            <path d="M28 40 C28 26 34 20 38 20 C42 20 46 26 48 38" stroke="#8B5CF0" stroke-width="8" stroke-linecap="round" fill="none"/>
+          </svg>
+          cvita
+        </div>
+        <p class="tag">Recruitment, staffing, managed service, and payroll — one partner, handled properly. CVITA Limited, registered in England &amp; Wales, company no. 09518533.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Permanent</a></li>
+          <li><a href="#services">Temporary &amp; contract</a></li>
+          <li><a href="#services">Managed service / RPO</a></li>
+          <li><a href="#services">Payroll hours</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#compliance">Compliance</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Privacy Notice — Candidates &amp; Workers</a></li>
+          <li><a href="#">Privacy Notice — Client Contacts</a></li>
+          <li><a href="#">Terms of Business</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> CVITA Limited. All rights reserved.</span>
+      <span>Managed services. People first.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Contact form submission
+  const form = document.getElementById('contact-form');
+  if (form) {
+    const statusEl = document.getElementById('contact-status');
+    const submitBtn = document.getElementById('contact-submit');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const payload = {
+        name: form.name.value,
+        email: form.email.value,
+        company: form.company.value,
+        need: form.need.value,
+        message: form.message.value,
+        website: form.website.value, // honeypot
+      };
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      statusEl.style.color = '#EDE8FC';
+      statusEl.textContent = '';
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.reset();
+          submitBtn.textContent = 'Send & book a call';
+          statusEl.textContent = "Thanks — we've got your message and will be in touch shortly.";
+        } else {
+          submitBtn.textContent = 'Send & book a call';
+          statusEl.style.color = '#FFD3D3';
+          statusEl.textContent = data.error || "Something went wrong. Please try again, or email admin@cvita.co.uk directly.";
+        }
+      } catch (err) {
+        submitBtn.textContent = 'Send & book a call';
+        statusEl.style.color = '#FFD3D3';
+        statusEl.textContent = "Couldn't reach the server. Please try again, or email admin@cvita.co.uk directly.";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12});
+    revealEls.forEach(el=>io.observe(el));
+  } else {
+    revealEls.forEach(el=>el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+name = "cvita-contact"
+compatibility_date = "2026-07-01"
+
+[functions]
+routes = [
+  "/api/*"
+]

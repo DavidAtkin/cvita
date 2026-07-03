@@ -592,10 +592,10 @@
       statusEl.style.color = '#EDE8FC';
       statusEl.textContent = '';
       try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
+        const res = await fetch('/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
         });
         const data = await res.json().catch(() => ({}));
         if (res.ok && data.ok) {

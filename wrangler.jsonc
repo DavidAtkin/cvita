@@ -1,15 +1,19 @@
-
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cvita",
+  "main": "src/index.js",
   "compatibility_date": "2026-07-08",
-  "assets": {
-    "directory": "."
-  },
   "observability": {
     "enabled": true
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  }
 }

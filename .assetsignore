@@ -1,0 +1,16 @@
+.git
+.git/*
+.github
+.github/*
+.wrangler
+.wrangler/*
+node_modules
+node_modules/*
+src
+src/*
+functions
+functions/*
+wrangler.jsonc
+wrangler.toml
+package-lock.json
+package.json

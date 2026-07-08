@@ -53,19 +53,12 @@ async function handleContact(request, env) {
     return jsonResponse({ ok: false, error: "Please provide a valid email address." }, 400);
   }
 
-
-return new Response(
-  JSON.stringify({
-    CF_ACCOUNT_ID: !!env.CF_ACCOUNT_ID,
-    CF_EMAIL_API_TOKEN: !!env.CF_EMAIL_API_TOKEN
-  }),
-  {
-    headers: {
-      "Content-Type": "application/json"
-    }
+  if (!env.CF_ACCOUNT_ID || !env.CF_EMAIL_API_TOKEN) {
+    return jsonResponse(
+      { ok: false, error: "Email is not configured on the server yet." },
+      500
+    );
   }
-);
-
 
   const subject = `New enquiry from ${name}${company ? " (" + company + ")" : ""}`;
 
